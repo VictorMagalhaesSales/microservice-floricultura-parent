@@ -1,0 +1,1 @@
+- Anotação **@LoadBalanced**, no Bean de RestTemplate, permite que o mesmo resolva os nomes das aplicações registradas no eureka-server.
