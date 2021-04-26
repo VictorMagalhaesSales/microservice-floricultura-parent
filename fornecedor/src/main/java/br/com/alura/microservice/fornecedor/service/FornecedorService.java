@@ -15,4 +15,8 @@ public class FornecedorService {
 	public Fornecedor getPorEstado(String estado) {
 		return fornecedorRepository.findByEstado(estado);
 	}
+
+	public Fornecedor save(Fornecedor fornecedor) {
+		return fornecedorRepository.save(fornecedor);
+	}
 }
