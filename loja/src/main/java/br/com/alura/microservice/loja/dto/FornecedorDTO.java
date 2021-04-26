@@ -1,6 +1,6 @@
 package br.com.alura.microservice.loja.dto;
 
-public class InfoFornecedorDTO {
+public class FornecedorDTO {
 
 	private String endereco;
 

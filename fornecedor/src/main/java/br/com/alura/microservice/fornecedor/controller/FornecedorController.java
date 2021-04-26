@@ -19,12 +19,12 @@ public class FornecedorController {
 	private FornecedorService fornecedorService;
 
 	@GetMapping("/{estado}")
-	public Fornecedor getInfoPorEstado(@PathVariable String estado) {
-		return fornecedorService.getPorEstado(estado);
+	public Fornecedor findPorEstado(@PathVariable String estado) {
+		return fornecedorService.findPorEstado(estado);
 	}
 	
 	@PostMapping()
-	public Fornecedor save(@RequestBody Fornecedor fornecedor) {
+	public Fornecedor save(@RequestBody Fornecedor fornecedor) throws Exception {
 		return fornecedorService.save(fornecedor);
 	}
 }
