@@ -12,6 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
 
 eureka:
   client:
