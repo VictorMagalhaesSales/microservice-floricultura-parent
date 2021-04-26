@@ -1,4 +1,6 @@
 
+server:  port: 8080
+
 spring:  application:    name: 'loja'
 
 eureka:  client:    register-with-eureka: true
