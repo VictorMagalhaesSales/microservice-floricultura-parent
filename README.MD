@@ -1,5 +1,5 @@
 # Floricultura microservices parent
-Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tecnologias.
+> Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tecnologias.
 
 ## Microservices
 - **EUREKA-SERVER**: atua como serviço de registro das nossas aplicações;
@@ -8,17 +8,17 @@ Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tec
 
 ## Service Registry - Spring Eureka
 
-- Para habilitar o projeto como **registry**, é necessário importar a dependência **eureka-server** e adicionar a anotação `@EnableEurekaServer`.
+- Para habilitar o projeto(*eureka-server*) como **registry**, é necessário importar o starter **eureka-server** e adicionar a anotação `@EnableEurekaServer`.
 
-- **Registraremos** um client no Eureka importando a dependência **eureka-client** e adicionando as propriedades de referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**.
+- **Registraremos** um client(*loja* e *fornecedor*) no Eureka importando a dependência **eureka-client** e adicionando as propriedades de referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**.
 
 ## Load Balancer - Ribbon
 
 - **Ribbon:** lib do SpringCloud de **Client Side Load Balancing** onde o cliente decidirá qual instância do serviço receberá a requisição. RestTemplate e FeignClient possuem suporte.
 
-- **RestTemplate:** podemos resolver o nome dos host dos clientes registrados no Eureka com a anotação `@LoadBalancer` habilitando, também, o **C.S. Load Balancing** nas requisições.
+- **RestTemplate:** podemos resolver o nome dos host dos clientes registrados no Eureka com a anotação `@LoadBalancer` o que habilita, também, o **C.S. Load Balancing** nas requisições.
 
-- **FeignClient:** permite consumir as aplicações registradas no Eureka com Load Balancer. Deve-se adicionar `@EnableFeignClients` na classe main, criar interfaces com os métodos e anotações que mapearão as requisições e importar a dependência **openfeign**.
+- **FeignClient:** permite consumir as aplicações registradas no Eureka com Load Balancer. Deve-se adicionar `@EnableFeignClients` na classe main, criar interfaces([example](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/client/FornecedorClient.java)) com os métodos e anotações que mapearão as requisições e importar o starter **openfeign**.
 
 ## Tracing distribuído - Spring Sleuth
 
