@@ -1,5 +1,5 @@
 # Floricultura microservices parent
-Microserviços de uma floricultura feitos utilizando Spring Cloud e suas tecnologias.
+Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tecnologias.
 
 ## Microservices
 - **LOJA:** realiza a compra se comunicando com os demais serviços;
@@ -7,11 +7,11 @@ Microserviços de uma floricultura feitos utilizando Spring Cloud e suas tecnolo
 
 ## Service Registry - Spring Eureka
 
-- Para habilitar o serviço com Eureka como registry, é necessário adicionar a anotação `@EnableEurekaServer` e importar a dependência **eureka-server**.
+- Para habilitar o projeto como **registry**, é necessário importar a dependência **eureka-server** e adicionar a anotação `@EnableEurekaServer`.
 
-- Para **registrar** um client no Eureka, basta importar a dependência **eureka-client** e adicionar as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)** de seu registro;
+- **Registraremos** um client no Eureka importando a dependência **eureka-client** e adicionando as propriedades de referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**;
 
-## Load Balancer - Spring CLoud
+## Load Balancer - Ribbon
 
 - **Ribbon:** lib do SpringCloud de **Client Side Load Balancing** onde o cliente decidirá qual instância do serviço receberá a requisição. RestTemplate e FeignClient possuem suporte.
 
