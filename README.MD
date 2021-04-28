@@ -7,7 +7,7 @@ Microserviços de uma floricultura feitos utilizando Spring Cloud e suas tecnolo
 
 ## Service Registry - Spring Eureka
 
-- Para habilitar o serviço com Eureka como registry, é necessário adicionar a anotação `@EnableEurekaServer`` e importar a dependência **eureka-server**.
+- Para habilitar o serviço com Eureka como registry, é necessário adicionar a anotação `@EnableEurekaServer` e importar a dependência **eureka-server**.
 
 - Para **registrar** um client no Eureka, basta importar a dependência **eureka-client** e adicionar as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)** de seu registro;
 
