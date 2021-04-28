@@ -2,6 +2,7 @@
 Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tecnologias.
 
 ## Microservices
+- **EUREKA-SERVER**: atua como serviço de registro das nossas aplicações;
 - **LOJA:** realiza a compra se comunicando com os demais serviços;
 - **FORNECDOR:** CRUD produtos, CRUD pedidos, CRUD fornecedores;
 
@@ -9,7 +10,7 @@ Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tec
 
 - Para habilitar o projeto como **registry**, é necessário importar a dependência **eureka-server** e adicionar a anotação `@EnableEurekaServer`.
 
-- **Registraremos** um client no Eureka importando a dependência **eureka-client** e adicionando as propriedades de referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**;
+- **Registraremos** um client no Eureka importando a dependência **eureka-client** e adicionando as propriedades de referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**.
 
 ## Load Balancer - Ribbon
 
