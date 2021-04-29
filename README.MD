@@ -31,4 +31,7 @@
 
 ## Circuit Breaker - Hystrix
 
-- **Hystrixs:** utilizaremos `@EnableCircuitBreaker` para habilitá-lo na app e `@HystrixCommand` nos métodos para que a lib o gerencie e aplique suas funcionalidades. Um falback pode ser definido em `@HystrixCommand(fallbackMethod="methodFabck")` cujo método sera chamado ao ser forçado uma falha pelo Circuit Breaker. Se houver muitas falhas, o Hystrixs possui inteligencia de chamar o fallback por padrão durante um tempo.
+- **Hystrixs:** utilizaremos `@EnableCircuitBreaker` para habilitá-lo na app e `@HystrixCommand` nos métodos para que a lib o gerencie e aplique suas funcionalidades. O Hystrix gerencia as threads.
+    - Um fallback pode ser definido em cujo método será chamado ao ser forçado uma falha pelo Circuit Breaker. 
+    - Se houver muitas falhas, o Hystrixs possui inteligencia de chamar o fallback por padrão durante um tempo.
+    - **Bulkhead:** para dividir as threads entre os serviços e evitar que um utilize todas as threads disponíveis, devemos definir `@HystrixCommand(threadPoolKey="key")` em cada serviço.

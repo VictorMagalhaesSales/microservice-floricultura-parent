@@ -16,6 +16,7 @@ import br.com.alura.microservice.loja.dto.CompraDTO;
 import br.com.alura.microservice.loja.dto.FornecedorDTO;
 import br.com.alura.microservice.loja.dto.InfoPedidoDTO;
 import br.com.alura.microservice.loja.model.Compra;
+import br.com.alura.microservice.loja.repository.CompraRepository;
 
 @Service
 public class CompraService {
@@ -24,14 +25,20 @@ public class CompraService {
 	
 	@Autowired
 	private RestTemplate client;
+	
+	@Autowired private CompraRepository compraRepository;
 
 	@Autowired
 	private FornecedorClient fornecedorClient;
 	
 	@Autowired
 	private DiscoveryClient eurekaClient;
+		
+	@HystrixCommand(threadPoolKey = "getByIdThreadPool")
+	public Compra getById(Long id) {
+		return compraRepository.findById(id).orElse(new Compra());
+	}
 
-	@HystrixCommand(fallbackMethod="realizaCompraFallback")
 	public void realizaCompraComRestTemplate(CompraDTO compra) {
 		ResponseEntity<FornecedorDTO> exchange = 
 			client.exchange("http://fornecedor/"+compra.getEndereco().getEstado(), HttpMethod.GET, null, FornecedorDTO.class);
@@ -40,10 +47,10 @@ public class CompraService {
 			.forEach(fornecedor -> {System.out.println("localhost:"+fornecedor.getPort());});
 		System.out.println(exchange.getBody().getEndereco());
 	}
-	
+
+	@HystrixCommand(fallbackMethod="realizaCompraFallback", threadPoolKey = "realizaCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
 		final String estado = compra.getEndereco().getEstado();
-		
 		LOG.info("Buscando informações do fornecedor de {}", estado);
 		FornecedorDTO fornecedor = fornecedorClient.findPorEstado(estado);
 		LOG.info("Realizando um pedido");
@@ -52,7 +59,6 @@ public class CompraService {
 		Compra compraSalva = new Compra();
 		compraSalva.setPedidoId(infoPedido.getId());
 		compraSalva.setTempoDePreparo(infoPedido.getTempoDePreparo());
-		
 		compraSalva.setEnderecoDestino(fornecedor.getEndereco());
 		return compraSalva;
 	}
