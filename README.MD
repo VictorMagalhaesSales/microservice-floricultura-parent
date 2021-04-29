@@ -4,8 +4,8 @@
 
 ## Microservices
 - **EUREKA-SERVER**: atua como serviço de registro das nossas aplicações;
-- **LOJA:** realiza a compra se comunicando com os demais serviços;
-- **FORNECDOR:** CRUD produtos, CRUD pedidos, CRUD fornecedores;
+- **LOJA:** realiza a compra se comunicando com os demais serviços. Possui seu proprio database;
+- **FORNECDOR:** CRUD produtos, CRUD pedidos, CRUD fornecedores. Possui seu proprio database;
 <br>
 
 ## Service Registry - Spring Eureka
@@ -36,7 +36,7 @@
 
 ## Circuit Breaker - Hystrix
 
-- **Hystrixs:** utilizaremos `@EnableCircuitBreaker` para habilitá-lo na app e `@HystrixCommand` nos métodos para que a lib o gerencie e aplique suas funcionalidades. O Hystrix gerencia as threads.
-    - Um fallback pode ser definido em cujo método será chamado ao ser forçado uma falha pelo Circuit Breaker. 
-    - Se houver muitas falhas, o Hystrix possui inteligencia de chamar o fallback por padrão durante um tempo.
-    - **Bulkhead:** para dividir as threads entre os serviços e evitar que um utilize todas as threads disponíveis, devemos definir `@HystrixCommand(threadPoolKey="key")` em cada serviço.
+- **Hystrixs:** utilizaremos `@EnableCircuitBreaker` para habilitá-lo na app e `@HystrixCommand` nos métodos para que a lib o gerencie e aplique suas funcionalidades. O Hystrix passará a gerenciar as threads.
+    - Um **fallback** pode ser definido para um método que será chamado quando o Circuit Breaker ocorrer: `@HystrixCommand(fallbackMethod="realizaCompraFallback")`.
+    - Se houver **muitas falhas**, o Hystrix possui inteligencia de chamar o fallback por padrão durante um tempo.
+    - **Bulkhead:** para evitar que, ao haver uma sobrecarga de chamadas para uma operação, outra operação fique sem threads disponíveis, criaremos um **pool de thread** separado para cada metodo: `@HystrixCommand(threadPoolKey="key")`.

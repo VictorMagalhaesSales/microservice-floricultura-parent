@@ -34,8 +34,9 @@ public class CompraService {
 	@Autowired
 	private DiscoveryClient eurekaClient;
 		
-	@HystrixCommand(threadPoolKey = "getByIdThreadPool")
+	@HystrixCommand(threadPoolKey = "buscarCompraThreadPool")
 	public Compra getById(Long id) {
+		LOG.info("Buscando compra com id " + id);
 		return compraRepository.findById(id).orElse(new Compra());
 	}
 
@@ -50,20 +51,24 @@ public class CompraService {
 
 	@HystrixCommand(fallbackMethod="realizaCompraFallback", threadPoolKey = "realizaCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
+		
 		final String estado = compra.getEndereco().getEstado();
 		LOG.info("Buscando informações do fornecedor de {}", estado);
 		FornecedorDTO fornecedor = fornecedorClient.findPorEstado(estado);
-		LOG.info("Realizando um pedido");
 		InfoPedidoDTO infoPedido = fornecedorClient.realizaPedido(compra.getItens());
+		LOG.info("Pedido com id '"+infoPedido.getId()+"' realizado com sucesso!");
 		
 		Compra compraSalva = new Compra();
 		compraSalva.setPedidoId(infoPedido.getId());
 		compraSalva.setTempoDePreparo(infoPedido.getTempoDePreparo());
 		compraSalva.setEnderecoDestino(fornecedor.getEndereco());
 		compraRepository.save(compraSalva);
+
+		LOG.info("Compra com id '"+compraSalva.getId()+"' com sucesso!");
 		return compraSalva;
 	}
 	
+	@SuppressWarnings("unused")
 	private Compra realizaCompraFallback(CompraDTO compra) {
 		Compra compraFb = new Compra();
 		compraFb.setEnderecoDestino(compra.getEndereco().toString());
