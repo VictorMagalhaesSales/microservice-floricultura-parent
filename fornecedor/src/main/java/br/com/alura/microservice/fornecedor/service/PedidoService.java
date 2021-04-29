@@ -3,6 +3,8 @@ package br.com.alura.microservice.fornecedor.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class PedidoService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(PedidoService.class);
 
 	public Pedido realizaPedido(List<ItemDoPedidoDTO> itens) {
 		if(itens == null) return null;
@@ -28,7 +32,9 @@ public class PedidoService {
 		List<PedidoItem> pedidoItens = toPedidoItem(itens);
 		Pedido pedido = new Pedido(pedidoItens);
 		pedido.setTempoDePreparo(itens.size());
-		return pedidoRepository.save(pedido);
+		pedidoRepository.save(pedido);
+		LOG.info("Salvando pedido com id "+pedido.getId()+" no banco de dados do fornecedor");
+		return pedido;
 	}
 	
 	public Pedido getPedidoPorId(Long id) {

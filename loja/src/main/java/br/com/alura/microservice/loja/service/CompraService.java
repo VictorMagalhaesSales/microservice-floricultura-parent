@@ -60,6 +60,7 @@ public class CompraService {
 		compraSalva.setPedidoId(infoPedido.getId());
 		compraSalva.setTempoDePreparo(infoPedido.getTempoDePreparo());
 		compraSalva.setEnderecoDestino(fornecedor.getEndereco());
+		compraRepository.save(compraSalva);
 		return compraSalva;
 	}
 	

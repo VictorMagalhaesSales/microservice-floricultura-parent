@@ -1,33 +1,32 @@
 version: '3.3'
 
 services:
-    db_fornecedor:
-      image: mysql:5.7
-      restart: always
-      environment:
-        MYSQL_DATABASE: 'fornecedor'
-        MYSQL_USER: 'user'
-        MYSQL_PASSWORD: 'root'
-        MYSQL_ROOT_PASSWORD: 'root'
-      ports:
-        - '3306:3306'
-      expose:
-        - '3306'
-        volumes:
-        - .data/fornecedor/:/var/lib/mysql/
+  db_fornecedor:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'fornecedor'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+    - .data/fornecedor/:/var/lib/mysql/
 
-    db_loja:
-      image: mysql:5.7
-      restart: always
-      environment:
-        MYSQL_DATABASE: 'loja'
-        MYSQL_USER: 'user'
-       MYSQL_PASSWORD: 'root'
-        MYSQL_ROOT_PASSWORD: 'root'
-      ports:
-        - '3307:3306'
-      expose:
-       - '3307'
-        volumes:
-        - .data/loja/:/var/lib/mysql/
-
+  db_loja:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'loja'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    volumes:
+    - .data/loja/:/var/lib/mysql/
