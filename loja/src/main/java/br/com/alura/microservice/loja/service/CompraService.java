@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import br.com.alura.microservice.loja.client.FornecedorClient;
 import br.com.alura.microservice.loja.dto.CompraDTO;
 import br.com.alura.microservice.loja.dto.FornecedorDTO;
@@ -29,6 +31,7 @@ public class CompraService {
 	@Autowired
 	private DiscoveryClient eurekaClient;
 
+	@HystrixCommand(fallbackMethod="realizaCompraFallback")
 	public void realizaCompraComRestTemplate(CompraDTO compra) {
 		ResponseEntity<FornecedorDTO> exchange = 
 			client.exchange("http://fornecedor/"+compra.getEndereco().getEstado(), HttpMethod.GET, null, FornecedorDTO.class);
@@ -52,6 +55,12 @@ public class CompraService {
 		
 		compraSalva.setEnderecoDestino(fornecedor.getEndereco());
 		return compraSalva;
+	}
+	
+	private Compra realizaCompraFallback(CompraDTO compra) {
+		Compra compraFb = new Compra();
+		compraFb.setEnderecoDestino(compra.getEndereco().toString());
+		return compraFb;
 	}
 
 }
