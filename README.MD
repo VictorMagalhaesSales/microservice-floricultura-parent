@@ -11,11 +11,12 @@
 <br>
 
 ## API Gateway - Zuul
-- Para habilitar o projeto(*zuul*) como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
+- Para habilitar o [projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul) como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
+<br>
 
 ## Service Registry - Spring Eureka
 
-- Para habilitar o projeto(*eureka-server*) como **registry**, é necessário importar o starter **netflix-eureka-server** e adicionar a anotação `@EnableEurekaServer`.
+- Para habilitar o [projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/eureka-server) como **Service Registry**, é necessário importar o starter **netflix-eureka-server** e adicionar a anotação `@EnableEurekaServer`.
 
 - **Eureka Client** nos permite registrar um client(*loja* e *fornecedor*) no Eureka adicionando as propriedades referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**.
 <br>
