@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.microservice.sso</groupId>
-	<artifactId>authorization-sso</artifactId>
+	<artifactId>auth-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>authorization-sso</name>
+	<name>auth-server</name>
 	<description>Servidor de Autorização SSO</description>
 	<properties>
 		<java.version>11</java.version>

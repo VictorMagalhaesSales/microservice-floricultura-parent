@@ -4,7 +4,7 @@
 
 ## Microservices
 - **ZULL**: atua como API Gateway.
-- **AUTHORIZATION-SSO**: atua como um servidor de autorização OAuth2.
+- **AUTH-SERVER**: atua como um servidor de autorização OAuth2.
 - **EUREKA-SERVER**: atua como serviço de registro das nossas aplicações;
 - **LOJA:** realiza a compra se comunicando com os demais serviços. Banco de dados único;
 - **FORNECDOR:** CRUD produtos, CRUD pedidos, CRUD fornecedores. Banco de dados único;
@@ -13,9 +13,10 @@
 
 ## Authorization Server - Oauth2
 
-- Habilitando o projeto como servidor de autorização em **[AuthorizationServerConfigurer]()** e criando o client *loja* e secret *secret* em memória.
-- Habilitando o projeto como servidor de recursos em **[AuthorizationSsoApplication]()** e habilitando um @RestController com endpoint `/user`.
-- Configurando o spring security em **[SpringSecurityConfigurer]()** e criando o usuário *victor* com senha *password* em memória.
+- Habilitando o projeto como servidor de autorização em **[AuthorizationServerConfigurer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/configuration/AuthorizationServerConfigurer.java)** e criando o client *loja* e secret *secret* em memória.
+- Habilitando o projeto como servidor de recursos em **[AuthorizationSsoApplication](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/AuthorizationSsoApplication.java)** e habilitando um @RestController com endpoint `/user`.
+- Configurando o spring security em **[SpringSecurityConfigurer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/configuration/SpringSecurityConfigurer.java)** e criando o usuário *victor* com senha *password* em memória.
+- Habilitando serviços externos(fornecedor e loja) como resouce server com **[@EnableResourceServer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/FornecedorApplication.java)**, extendendo **[ResourceServerConfigurerAdapter](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/ResourceServerConfigurer.java)** e referenciando o AuthServer em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**(`security.oauth2.resource.user-info-uri`).
 
 ## API Gateway - Zuul
 - Para habilitar o [projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul) como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
