@@ -17,9 +17,11 @@
 - Habilitando o projeto como servidor de recursos em **[AuthorizationSsoApplication](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/AuthorizationSsoApplication.java)** e habilitando um @RestController com endpoint `/user`.
 - Configurando o spring security em **[SpringSecurityConfigurer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/configuration/SpringSecurityConfigurer.java)** e criando o usuário *victor* com senha *password* em memória.
 - Habilitando serviços externos(fornecedor e loja) como resouce server com **[@EnableResourceServer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/FornecedorApplication.java)**, extendendo **[ResourceServerConfigurerAdapter](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/ResourceServerConfigurer.java)** e referenciando o AuthServer em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**(`security.oauth2.resource.user-info-uri`).
+<br>
 
 ## API Gateway - Zuul
 - Para habilitar o [projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul) como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
+- Compartilhamos os headers de autorização que são recebidos nas requisições em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)**.
 <br>
 
 ## Service Registry - Spring Eureka
@@ -36,6 +38,7 @@
 - **RestTemplate:** podemos resolver o nome dos host dos clientes registrados no Eureka com a anotação `@LoadBalancer` o que habilita, também, o **C.S. Load Balancing** nas requisições.
 
 - **FeignClient:** permite consumir as aplicações registradas no Eureka com Load Balancer. Deve-se adicionar `@EnableFeignClients` na classe main e criar interfaces([example](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/client/FornecedorClient.java)) com os métodos e anotações que mapearão as requisições.
+- Para refletir **dados das requisições** recebidas, criamos um **[RequestInterceptor](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/LojaApplication.java)** e copiamos o **token** para o header da requisição realizada pelo Feign.
 <br>
 
 ## Tracing distribuído - Spring Sleuth
@@ -54,3 +57,4 @@
     - Um **fallback** pode ser definido para um método que será chamado quando o Circuit Breaker ocorrer: `@HystrixCommand(fallbackMethod="realizaCompraFallback")`.
     - Se houver **muitas falhas**, o Hystrix possui inteligencia de chamar o fallback por padrão durante um tempo.
     - **Bulkhead:** para evitar que, ao haver uma sobrecarga de chamadas para uma operação, outra operação fique sem threads disponíveis, criaremos um **pool de thread** separado para cada metodo: `@HystrixCommand(threadPoolKey="key")`.
+    - Configuramos **[`shareSecurityContext: true`](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/resources/application.yml)** para compartilhar o **contexto de seguraça** entre as threads gerenciadas pelo Hystrix.
