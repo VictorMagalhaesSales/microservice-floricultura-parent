@@ -14,3 +14,9 @@ management:
       exposure:
         include:
         - "routes"
+zuul:
+  sensitive-headers:
+  - Cookie, Authorization
+  host:
+    socket-timeout-millis: 200000
+    connect-timeout-millis: 200000
