@@ -1,5 +1,5 @@
 # Floricultura microservices parent
-> Microserviços de uma floricultura feitos utilizando **Spring Cloud** e suas tecnologias.
+> Microserviços de uma floricultura feitos utilizando **Spring Cloud**, implementando um Autorization Server, API Gateway, Service Registry, Load Balancer, Tracing Distribuído e um Circuit Breaker.
 <br>
 
 ## Microservices
@@ -14,13 +14,13 @@
 ## Authorization Server - Oauth2
 
 - Habilitando o projeto como servidor de autorização em **[AuthorizationServerConfigurer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/configuration/AuthorizationServerConfigurer.java)** e criando o client *loja* e secret *secret* em memória.
-- Habilitando o projeto como servidor de recursos em **[AuthorizationSsoApplication](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/AuthorizationSsoApplication.java)** e habilitando um @RestController com endpoint `/user`.
+- Habilitando o projeto como servidor de recursos em **[AuthorizationSsoApplication](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/AuthorizationSsoApplication.java)** para então criar um @RestController com endpoint `/user` retornando os dados do usuário autenticado.
 - Configurando o spring security em **[SpringSecurityConfigurer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/auth-server/src/main/java/br/com/microservice/sso/configuration/SpringSecurityConfigurer.java)** e criando o usuário *victor* com senha *password* em memória.
-- Habilitando serviços externos(fornecedor e loja) como resouce server com **[@EnableResourceServer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/FornecedorApplication.java)**, extendendo **[ResourceServerConfigurerAdapter](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/ResourceServerConfigurer.java)** e referenciando o AuthServer em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**(`security.oauth2.resource.user-info-uri`).
+- Habilitando os serviços *fornecedor* e *loja* como resouce server através de **[@EnableResourceServer](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/FornecedorApplication.java)**, extensão de **[ResourceServerConfigurerAdapter](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/ResourceServerConfigurer.java)** e referência de AuthServer em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**(`security.oauth2.resource.user-info-uri`).
 <br>
 
 ## API Gateway - Zuul
-- Para habilitar o [projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul) como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
+- Para habilitar o **[projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul)** como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
 - Compartilhamos os headers de autorização que são recebidos nas requisições em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul/src/main/resources/application.yml)**.
 <br>
 
@@ -33,7 +33,7 @@
 
 ## Load Balancer - Ribbon
 
-- **Ribbon:** lib do SpringCloud de **Client Side Load Balancing** onde o cliente decidirá qual instância do serviço receberá a requisição. RestTemplate e FeignClient possuem suporte.
+- **Ribbon:** lib do SpringCloud de **Client Side Load Balancing** onde o cliente decidirá qual instância do serviço receberá a requisição. *RestTemplate* e *FeignClient* possuem suporte.
 
 - **RestTemplate:** podemos resolver o nome dos host dos clientes registrados no Eureka com a anotação `@LoadBalancer` o que habilita, também, o **C.S. Load Balancing** nas requisições.
 
