@@ -20,7 +20,7 @@
 <br>
 
 ## API Gateway - Zuul
-- Para habilitar o **[projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul-gateway)** como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@netflix` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul-gateway/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
+- Para habilitar o **[projeto](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/tree/master/zuul-gateway)** como **API Gateway**, é necessário importar o starter **netflix-zuul**, adicionar a anotação `@EnableZuulProxy` e as **[propriedades](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul-gateway/src/main/resources/application.yml)** do eureka server para recuperar todas as aplicações registradas e fazer o proxy.
 - Compartilhamos os headers de autorização que são recebidos nas requisições em **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/zuul-gateway/src/main/resources/application.yml)**.
 <br>
 
