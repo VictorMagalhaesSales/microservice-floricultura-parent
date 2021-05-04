@@ -3,8 +3,8 @@
 <br>
 
 ## Microservices
-- **ZULL**: atua como API Gateway.
 - **AUTH-SERVER**: atua como um servidor de autorização OAuth2.
+- **ZULL-GATEWAY**: atua como API Gateway.
 - **EUREKA-SERVER**: atua como serviço de registro das nossas aplicações;
 - **LOJA:** realiza a compra se comunicando com os demais serviços. Banco de dados único;
 - **FORNECDOR:** CRUD produtos, CRUD pedidos, CRUD fornecedores. Banco de dados único;
