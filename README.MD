@@ -38,7 +38,7 @@
 - **RestTemplate:** podemos resolver o nome dos host dos clientes registrados no Eureka com a anotação `@LoadBalancer` o que habilita, também, o **C.S. Load Balancing** nas requisições.
 
 - **FeignClient:** permite consumir as aplicações registradas no Eureka com Load Balancer. Deve-se adicionar `@EnableFeignClients` na classe main e criar interfaces([example](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/client/FornecedorClient.java)) com os métodos e anotações que mapearão as requisições.
-- Para refletir **dados das requisições** recebidas, criamos um **[RequestInterceptor](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/LojaApplication.java)** e copiamos o **token** para o header da requisição realizada pelo Feign.
+- Para replicar **dados de autenticação** das requisições recebidas, criamos um **[RequestInterceptor](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/LojaApplication.java)** e copiamos o **token** para o header da requisição realizada pelo Feign.
 <br>
 
 ## Tracing distribuído - Spring Sleuth
