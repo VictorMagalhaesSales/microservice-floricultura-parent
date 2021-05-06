@@ -31,7 +31,7 @@
 - **Eureka Client** nos permite registrar um client(*loja* e *fornecedor*) no Eureka adicionando as propriedades referentes ao seu registro em seu **[application.yml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/application.yml)**.
 <br>
 
-## Load Balancer - Ribbon
+## Load Balancer(Client Side) - Ribbon
 
 - **Ribbon:** lib do SpringCloud de **Client Side Load Balancing** onde o cliente decidirá qual instância do serviço receberá a requisição. *RestTemplate* e *FeignClient* possuem suporte.
 
@@ -51,7 +51,7 @@
 - **Papertrail:** permite **centralizar logs** informando suas propriedades de conexão em **[logback.xml](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/fornecedor/src/main/resources/logback.xml)**. 
 <br>
 
-## Circuit Breaker - Hystrix
+## Circuit Breaker(Client Side) - Hystrix
 
 - **Hystrixs:** utilizaremos `@EnableCircuitBreaker` para habilitá-lo na app e [`@HystrixCommand`](https://github.com/VictorMagalhaesSales/microservice-floricultura-parent/blob/master/loja/src/main/java/br/com/alura/microservice/loja/service/CompraService.java) nos métodos para que a lib o gerencie e aplique suas funcionalidades. O Hystrix passará a gerenciar as threads.
     - Um **fallback** pode ser definido para um método que será chamado quando o Circuit Breaker ocorrer: `@HystrixCommand(fallbackMethod="realizaCompraFallback")`.
